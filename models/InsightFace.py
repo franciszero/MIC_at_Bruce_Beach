@@ -1,11 +1,6 @@
-import datetime
 import numpy as np
-import os
-import os.path as osp
-import glob
 import cv2
 import insightface
-from PIL import Image
 from fiftyone import dataset_exists, delete_dataset
 import fiftyone as fo
 from fiftyone.types import COCODetectionDataset
@@ -28,7 +23,7 @@ class AnnotationInsightFace:
         if dataset_exists(new_ds_name):
             delete_dataset(new_ds_name)
         self.new_ds = fo.Dataset.from_dir(dataset_type=COCODetectionDataset,
-                                          data_path=workspace + "/images/",
+                                          data_path=workspace + "../images/",
                                           labels_path=workspace + "/instances_default.json",
                                           name=new_ds_name)
 
