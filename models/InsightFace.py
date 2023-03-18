@@ -28,7 +28,7 @@ class AnnotationInsightFace:
         if dataset_exists(new_ds_name):
             delete_dataset(new_ds_name)
         self.new_ds = fo.Dataset.from_dir(dataset_type=COCODetectionDataset,
-                                          data_path=workspace + "../images/",
+                                          data_path=workspace + "/images/",
                                           labels_path=workspace + "/instances_default.json",
                                           name=new_ds_name)
 
