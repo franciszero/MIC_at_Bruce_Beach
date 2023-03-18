@@ -9,6 +9,6 @@ if len(sys.argv) == 2:
 else:
     exit(250)
 
-# AnnotationResNet(batch_path, model_id=0).foo()
-# AnnotationYOLOv8(batch_path, model_id=1).foo()
+AnnotationResNet(batch_path, model_id=0).foo()
+AnnotationYOLOv8(batch_path, model_id=1).foo()
 AnnotationInsightFace(batch_path, model_id=2).foo()
