@@ -73,7 +73,7 @@ class AnnotationInsightFace:
                 self.ds.add_sample(sample)
                 print("load new file: %s" % sample.filename)
 
-        # for visualization only
-        session = fo.launch_app(self.ds)
-        session.wait()
+        # # for visualization only
+        # session = fo.launch_app(self.ds)
+        # session.wait()
         pass
