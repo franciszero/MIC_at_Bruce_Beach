@@ -6,7 +6,7 @@ import os
 import fiftyone as fo
 from torchvision.transforms import functional as func
 
-from models.utils.Consts import MODEL_LIST
+from models.utils.Consts import MODEL_LIST, LABEL_PERSON
 
 
 class AnnotationYOLOv8:
@@ -60,7 +60,7 @@ class AnnotationYOLOv8:
                 sample["predictions"] = fo.Detections(detections=detections)
                 # sample.save()  # save predictions to dataset
                 self.ds.add_sample(sample)
-                print("append new file: %s" % sample.filename)
+                print("load new file: %s" % sample.filename)
 
         # # for visualization only
         # session = fo.launch_app(self.ds)

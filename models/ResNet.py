@@ -70,7 +70,7 @@ class AnnotationResNet:
                 sample["predictions"] = fo.Detections(detections=detections)
                 # sample.save()  # save predictions to dataset
                 self.ds.add_sample(sample)
-                print("append new file: %s" % sample.filename)
+                print("load new file: %s" % sample.filename)
 
         # # for visualization only
         # session = fo.launch_app(self.ds)
