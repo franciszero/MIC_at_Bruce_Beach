@@ -5,7 +5,7 @@ import sys
 
 batch_path = None
 if len(sys.argv) == 2:
-    batch_path = str(sys.argv[1])  # e.g. "./data/batch_20230318_0/"
+    batch_path = "./data/%s/" % str(sys.argv[1])  # e.g. "./data/batch_20230318_0/"
 else:
     exit(250)
 
