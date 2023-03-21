@@ -42,8 +42,14 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 # # train for 20min for 2 epochs. This is going to be stored in '/train33'
 # YOLO('../../runs/detect/train31/weights/last.pt').train(data='BruceBeach39.yaml', epochs=2, imgsz=640)
 
-# train for 3 epochs. This is going to be stored in '/train34'.
-YOLO('../../runs/detect/train33/weights/last.pt').train(data='BruceBeach39.yaml', epochs=3, imgsz=640)
+# # train for 3 epochs. This is going to be stored in '/train34'.
+# YOLO('../../runs/detect/train33/weights/last.pt').train(data='BruceBeach39.yaml', epochs=3, imgsz=640)
+
+# # train for 3 epochs. This is going to be stored in '/train35'.
+# YOLO('../../runs/detect/train34/weights/last.pt').train(data='BruceBeach39.yaml', epochs=3, imgsz=640)
+
+# train for 3 epochs. This is going to be stored in '/train36'.
+YOLO('../../runs/detect/train35/weights/last.pt').train(data='BruceBeach39.yaml', epochs=6, imgsz=640)
 
 # merging training results
 files = ['../../runs/detect/train28/results.csv',
@@ -51,6 +57,8 @@ files = ['../../runs/detect/train28/results.csv',
          '../../runs/detect/train31/results.csv',
          '../../runs/detect/train33/results.csv',
          '../../runs/detect/train34/results.csv',
+         '../../runs/detect/train35/results.csv',
+         '../../runs/detect/train36/results.csv',
          ]
 df = pd.concat(map(pd.read_csv, files), ignore_index=True)
 df.columns = [x.strip(' ') for x in df.columns]

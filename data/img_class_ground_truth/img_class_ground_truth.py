@@ -1,7 +1,9 @@
 import fiftyone as fo
 import numpy as np
+import seaborn as sns
 from collections import defaultdict
 import pandas as pd
+from matplotlib import pyplot as plt
 from pandas import IndexSlice
 
 from models.utils.Consts import MODEL_LIST
@@ -27,9 +29,8 @@ def generate_img_clf_gt(metrics_dic, model_name):
                 ap = results.mAP()
                 [acc, pre, rec, f1, sup] = results.metrics().values()
             df.loc[:, model_name] = [acc, pre, rec, f1, sup, ap]
-    except:
-        return
-    pass
+    except Exception:
+        raise
 
 
 def new_metric_frame():
@@ -43,7 +44,7 @@ dict_metrics = defaultdict(lambda: new_metric_frame())
 for model_id in range(len(MODEL_LIST)):
     generate_img_clf_gt(dict_metrics, MODEL_LIST[model_id])
 
-path = './data/img_class_ground_truth/'
+path = './'
 tmp = pd.DataFrame(index=pd.MultiIndex(levels=[[], []], codes=[[], []], names=[u'file', u'metric']),
                    columns=MODEL_LIST, dtype=float, )
 for (n, a) in dict_metrics.items():
@@ -57,3 +58,20 @@ for metric in tmp.index.get_level_values('metric').unique():
     tmp.loc[IndexSlice[:, metric], MODEL_LIST].droplevel('metric').to_csv(path + '%s.csv' % metric, float_format='%.3f')
 tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
     .to_csv(path + 'labels.csv', float_format='%.3f')
+
+# visualization
+plot_df = pd.read_csv('./data/img_class_ground_truth/accuracy.csv')
+plot_df = plot_df.sort_values(by=list(MODEL_LIST)[::-1], ascending=False)
+plot_df = plot_df.set_index(['file'])
+plot_df = plot_df.stack()
+plot_df.index = plot_df.index.rename('model', level=1)
+plot_df.name = 'accuracy'
+plot_df = plot_df.reset_index()
+fig, ax = plt.subplots(1, 1, figsize=(12, 5))
+sns.lineplot(data=plot_df, x="file", y='accuracy', hue='model', style="model",
+             markers=False, dashes=False, lw=1, ax=ax)
+ax.set_title('Model accuracy comparison')
+ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
+plt.tight_layout()
+
+plt.savefig('./data/img_class_ground_truth/img_class_ground_truth.png')
