@@ -12,25 +12,28 @@ pd.set_option('display.precision', 3)
 
 
 def generate_img_clf_gt(metrics_dic, model_name):
-    dataset = fo.load_dataset(model_name)
-    for sample in dataset:
-        df = metrics_dic[sample.filename]
-        if sample.get_field('detections') is None:
-            lst = sample.get_field('predictions').get_field('detections')
-            ap = 1.0 if lst == [] else 0.0
-            [acc, pre, rec, f1, sup] = [1.] * 5 if lst == [] else [0.] * 5
-        else:
-            results = dataset.select(sample.id) \
-                .evaluate_detections("predictions", gt_field="detections", iou=0.4,
-                                     eval_key="eval", compute_mAP=True, )
-            ap = results.mAP()
-            [acc, pre, rec, f1, sup] = results.metrics().values()
-        df.loc[:, model_name] = [acc, pre, rec, f1, sup, ap]
+    try:
+        dataset = fo.load_dataset(model_name)
+        for sample in dataset:
+            df = metrics_dic[sample.filename]
+            if sample.get_field('detections') is None:
+                lst = sample.get_field('predictions').get_field('detections')
+                ap = 1.0 if lst == [] else 0.0
+                [acc, pre, rec, f1, sup] = [1.] * 5 if lst == [] else [0.] * 5
+            else:
+                results = dataset.select(sample.id) \
+                    .evaluate_detections("predictions", gt_field="detections", iou=0.4,
+                                         eval_key="eval", compute_mAP=True, )
+                ap = results.mAP()
+                [acc, pre, rec, f1, sup] = results.metrics().values()
+            df.loc[:, model_name] = [acc, pre, rec, f1, sup, ap]
+    except:
+        return
     pass
 
 
 def new_metric_frame():
-    return pd.DataFrame(data=np.zeros(3 * 6).reshape(-1, 3),
+    return pd.DataFrame(data=np.zeros(len(MODEL_LIST) * 6).reshape(-1, len(MODEL_LIST)),
                         columns=MODEL_LIST,
                         index=['accuracy', 'precision', 'recall', 'f1score', 'support', 'mAP'],
                         ).copy()
@@ -52,5 +55,5 @@ tmp.to_csv(path + 'rawdata.csv', float_format='%.3f')
 
 for metric in tmp.index.get_level_values('metric').unique():
     tmp.loc[IndexSlice[:, metric], MODEL_LIST].droplevel('metric').to_csv(path + '%s.csv' % metric, float_format='%.3f')
-tmp.reset_index('metric').pivot(columns='metric', values='best_model_name')\
+tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
     .to_csv(path + 'labels.csv', float_format='%.3f')

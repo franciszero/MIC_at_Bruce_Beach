@@ -18,7 +18,7 @@ class YOLOv8:
     def __init__(self, i, o):
         self.input = i
         self.output = o
-        self.model = YOLO('ultralyticsplus/yolov8s')
+        self.model = YOLO('weights/yolov8s')
         self.model.overrides['conf'] = 0.5  # NMS confidence threshold
         self.model.overrides['iou'] = 0.5  # NMS IoU threshold
         self.model.overrides['agnostic_nms'] = False  # NMS class-agnostic
