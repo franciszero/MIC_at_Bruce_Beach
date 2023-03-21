@@ -8,7 +8,7 @@ from models.utils.Consts import MODEL_LIST, LABEL_PERSON
 
 
 class AnnotationYOLOv8:
-    def __init__(self, workspace, model_id, model_weights='models/YOLOv8/weights/yolov8x'):
+    def __init__(self, workspace, model_id, model_weights):
         self.workspace = workspace
         if dataset_exists(MODEL_LIST[model_id]):
             self.ds = fo.load_dataset(MODEL_LIST[model_id])

@@ -13,7 +13,7 @@ from models.utils.Consts import MODEL_LIST, LABEL_PERSON
 
 
 class AnnotationSahiYOLOv8:
-    def __init__(self, workspace, model_id, model_weights='./weights/yolov8x.pt'):
+    def __init__(self, workspace, model_id, model_weights):
         self.workspace = workspace
         if dataset_exists(MODEL_LIST[model_id]):
             self.ds = fo.load_dataset(MODEL_LIST[model_id])
@@ -29,7 +29,6 @@ class AnnotationSahiYOLOv8:
                                           labels_path=workspace + "/instances_default.json",
                                           name=new_ds_name)
 
-        model_weights = './weights/yolov8x.pt'
         YOLO(model_weights)
         self.model = Yolov8DetectionModel(model_path=model_weights)
 
