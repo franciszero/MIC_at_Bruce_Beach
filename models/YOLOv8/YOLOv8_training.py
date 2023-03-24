@@ -3,6 +3,7 @@ import seaborn as sns
 from ultralytics import YOLO
 import math
 import pandas as pd
+import sys
 
 pd.set_option('display.max_columns', 30)
 pd.set_option('display.width', 2000)
@@ -55,8 +56,11 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 # Train from the beginning with the right split of training/validation datasets.
 YOLO('./weights/yolov8x.pt').train(data='BruceBeach39.yaml', epochs=1, imgsz=640)
 
+train_result_folder = '??????'
+if len(sys.argv) == 2:
+    train_result_folder = str(sys.argv[1])  # e.g. "train6"
 # merging training results
-files = ['../../runs/detect/train37/results.csv',
+files = ['../../runs/detect/' + train_result_folder + '/results.csv',
          # '../../runs/detect/train30/results.csv',
          # '../../runs/detect/train31/results.csv',
          # '../../runs/detect/train33/results.csv',
