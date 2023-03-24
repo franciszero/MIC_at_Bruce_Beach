@@ -10,6 +10,20 @@ pd.set_option('display.width', 2000)
 pd.set_option('display.precision', 3)
 
 
+
+epochs = 1
+train_result_folder = '??????'
+if len(sys.argv) == 3:
+    epochs = int(sys.argv[1])
+    train_result_folder = str(sys.argv[2])  # e.g. "train6"
+else:
+    exit(250)
+
+
+print("[DEBUG] epochs=", epochs)
+print("[DEBUG] train_result_folder=",train_result_folder)
+
+
 def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
     assert (gridspec_cols >= 2)  # not allowed single col gridspec plot
     assert (len(column_names_to_plot) / gridspec_cols > 1)  # not allowed single row gridspec plot
@@ -54,16 +68,11 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 # YOLO('../../runs/detect/train35/weights/last.pt').train(data='BruceBeach39.yaml', epochs=6, imgsz=640)
 
 # Train from the beginning with the right split of training/validation datasets.
-YOLO('./weights/yolov8x.pt').train(data='./models/YOLOv8/BruceBeach39.yaml', epochs=1, imgsz=640)
+YOLO('./weights/yolov8x.pt').train(data='./models/YOLOv8/BruceBeach39.yaml',patience=0, epochs=epochs, imgsz=640)  # use `patience=0` to disable EarlyStopping
 
-epochs = 1
-train_result_folder = '??????'
-if len(sys.argv) == 3:
-    epochs = int(sys.argv[1])
-    train_result_folder = str(sys.argv[2])  # e.g. "train6"
 
 # merging training results
-files = ['../../runs/detect/' + train_result_folder + '/results.csv',
+files = ['./runs/detect/' + train_result_folder + '/results.csv',
          # '../../runs/detect/train30/results.csv',
          # '../../runs/detect/train31/results.csv',
          # '../../runs/detect/train33/results.csv',
