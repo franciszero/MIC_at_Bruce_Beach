@@ -52,9 +52,8 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 # # train for 3 epochs. This is going to be stored in '/train36'.
 # YOLO('../../runs/detect/train35/weights/last.pt').train(data='BruceBeach39.yaml', epochs=6, imgsz=640)
 
-# # Train from the beginning with the right split of training/validation datasets.
-# # This result will be stored at '/train36'.
-# YOLO('./weights/yolov8x.pt').train(data='BruceBeach39.yaml', epochs=50, imgsz=640)
+# Train from the beginning with the right split of training/validation datasets.
+YOLO('./weights/yolov8x.pt').train(data='BruceBeach39.yaml', epochs=1, imgsz=640)
 
 # merging training results
 files = ['../../runs/detect/train37/results.csv',
