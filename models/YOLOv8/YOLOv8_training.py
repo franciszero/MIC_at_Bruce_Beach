@@ -54,7 +54,7 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 # YOLO('../../runs/detect/train35/weights/last.pt').train(data='BruceBeach39.yaml', epochs=6, imgsz=640)
 
 # Train from the beginning with the right split of training/validation datasets.
-YOLO('./weights/yolov8x.pt').train(data='BruceBeach39.yaml', epochs=1, imgsz=640)
+YOLO('./weights/yolov8x.pt').train(data='./models/YOLOv8/BruceBeach39.yaml', epochs=1, imgsz=640)
 
 train_result_folder = '??????'
 if len(sys.argv) == 2:
