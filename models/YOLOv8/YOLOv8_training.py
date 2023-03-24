@@ -59,7 +59,7 @@ YOLO('./weights/yolov8x.pt').train(data='./models/YOLOv8/BruceBeach39.yaml', epo
 epochs = 1
 train_result_folder = '??????'
 if len(sys.argv) == 3:
-    epochs = int(sys.argv[1]
+    epochs = int(sys.argv[1])
     train_result_folder = str(sys.argv[2])  # e.g. "train6"
 
 # merging training results
