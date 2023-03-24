@@ -165,7 +165,7 @@ class Driver:
 
     def scanImages(self, overwrite=False):
         dic = defaultdict(lambda: np.zeros(19))
-        for i, filename in enumerate(self.findAllFile()):
+        for i, filename in glob.glob(self.input):
             if filename == '.DS_Store':
                 continue
             print('processing : ' + filename)
