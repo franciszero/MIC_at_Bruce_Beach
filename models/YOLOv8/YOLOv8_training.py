@@ -45,30 +45,8 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 
 # YOLOv5 trainin quickstart: https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data
 
-# # load a pretrained model (recommended for training) and train the model
-# YOLO('./weights/yolov8x.pt').train(data='BruceBeach39.yaml', epochs=3, imgsz=640)
-
-# # 1 epoch for 10 min and 8hr * 6 =48 epochs during sleep.
-# # continue from the last epoch. This is going to be stored in '/train30'
-# YOLO('../../runs/detect/train28/weights/last.pt').train(data='BruceBeach39.yaml', epochs=50, imgsz=640)
-
-# # train for 30min for 3 epochs. This is going to be stored in '/train31'
-# YOLO('../../runs/detect/train31/weights/last.pt').train(data='BruceBeach39.yaml', epochs=3, imgsz=640)
-
-# # train for 20min for 2 epochs. This is going to be stored in '/train33'
-# YOLO('../../runs/detect/train31/weights/last.pt').train(data='BruceBeach39.yaml', epochs=2, imgsz=640)
-
-# # train for 3 epochs. This is going to be stored in '/train34'.
-# YOLO('../../runs/detect/train33/weights/last.pt').train(data='BruceBeach39.yaml', epochs=3, imgsz=640)
-
-# # train for 3 epochs. This is going to be stored in '/train35'.
-# YOLO('../../runs/detect/train34/weights/last.pt').train(data='BruceBeach39.yaml', epochs=3, imgsz=640)
-
-# # train for 3 epochs. This is going to be stored in '/train36'.
-# YOLO('../../runs/detect/train35/weights/last.pt').train(data='BruceBeach39.yaml', epochs=6, imgsz=640)
-
 # Train from the beginning with the right split of training/validation datasets.
-YOLO('./weights/yolov8x.pt').train(data='./models/YOLOv8/BruceBeach39.yaml',patience=0, epochs=epochs, imgsz=640)  # use `patience=0` to disable EarlyStopping
+YOLO('./weights/yolov8x.pt').train(data='./models/YOLOv8/BruceBeach76.yaml', patience=50, epochs=epochs)  #, imgsz=640)  # use `patience=0` to disable EarlyStopping
 
 
 # merging training results
@@ -76,9 +54,6 @@ files = ['./runs/detect/' + train_result_folder + '/results.csv',
          # '../../runs/detect/train30/results.csv',
          # '../../runs/detect/train31/results.csv',
          # '../../runs/detect/train33/results.csv',
-         # '../../runs/detect/train34/results.csv',
-         # '../../runs/detect/train35/results.csv',
-         # '../../runs/detect/train36/results.csv',
          ]
 df = pd.concat(map(pd.read_csv, files), ignore_index=True)
 df.columns = [x.strip(' ') for x in df.columns]
