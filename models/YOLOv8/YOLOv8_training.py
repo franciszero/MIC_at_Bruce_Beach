@@ -4,12 +4,11 @@ from ultralytics import YOLO
 import math
 import pandas as pd
 import sys
+import json
 
 pd.set_option('display.max_columns', 30)
 pd.set_option('display.width', 2000)
 pd.set_option('display.precision', 3)
-
-
 
 epochs = 1
 train_result_folder = '??????'
@@ -19,9 +18,8 @@ if len(sys.argv) == 3:
 else:
     exit(250)
 
-
 print("[DEBUG] epochs=", epochs)
-print("[DEBUG] train_result_folder=",train_result_folder)
+print("[DEBUG] train_result_folder=", train_result_folder)
 
 
 def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
@@ -46,8 +44,15 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 # YOLOv5 trainin quickstart: https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data
 
 # Train from the beginning with the right split of training/validation datasets.
-YOLO('./weights/yolov8x.pt').train(data='./models/YOLOv8/BruceBeach76.yaml', patience=50, epochs=epochs)  #, imgsz=640)  # use `patience=0` to disable EarlyStopping
-
+with open('YOLOv8_training.json', 'r') as f:
+    JSON_Obj = json.load(f)
+YOLO('./weights/yolov8x.pt').train(
+    data=JSON_Obj["data"],
+    imgsz=JSON_Obj["imgsz"],
+    epochs=JSON_Obj["epochs"],
+    batch=JSON_Obj["batch"],
+    patience=JSON_Obj["patience"],  # use `patience=0` to disable EarlyStopping
+)
 
 # merging training results
 files = ['./runs/detect/' + train_result_folder + '/results.csv',

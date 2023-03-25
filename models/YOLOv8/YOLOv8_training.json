@@ -1,0 +1,7 @@
+{
+	"data": "./models/YOLOv8/BruceBeach76.yaml",
+	"imgsz": 640,
+	"epochs": 200,
+	"batch": 8,
+	"patience": 50
+}
