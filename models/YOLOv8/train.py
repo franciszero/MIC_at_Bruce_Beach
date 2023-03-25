@@ -54,7 +54,7 @@ else:
                                                   if path.rsplit('train', 1)[1] != '' else 0
                                                   for path in trains]).max() + 1)
 # merging training results
-files = ['./runs/detect/' + train_result_folder + '/results.csv',
+files = ['../../runs/detect/' + train_result_folder + '/results.csv',
          # '../../runs/detect/train30/results.csv',
          # '../../runs/detect/train31/results.csv',
          # '../../runs/detect/train33/results.csv',
