@@ -54,19 +54,19 @@ def generate_img_clf_gt(metrics_dic, model_name):
         dataset = fo.load_dataset(model_name)
         # # running kaleido in a venv meets this bug: https://github.com/plotly/Kaleido/issues/78
         visualize_mAP_with_plotly(dataset, model_name)
-        # for sample in dataset:
-        #     df = metrics_dic[sample.filename]
-        #     if sample.get_field('detections') is None:
-        #         lst = sample.get_field('predictions').get_field('detections')
-        #         ap = 1.0 if lst == [] else 0.0
-        #         [acc, pre, rec, f1, sup] = [1.] * 5 if lst == [] else [0.] * 5
-        #     else:
-        #         results = dataset.select(sample.id) \
-        #             .evaluate_detections("predictions", gt_field="detections", iou=0.4,
-        #                                  eval_key="eval", compute_mAP=True, )
-        #         ap = results.mAP()
-        #         [acc, pre, rec, f1, sup] = results.metrics().values()
-        #     df.loc[:, model_name] = [acc, pre, rec, f1, sup, ap]
+        for sample in dataset:
+            df = metrics_dic[sample.filename]
+            if sample.get_field('detections') is None:
+                lst = sample.get_field('predictions').get_field('detections')
+                ap = 1.0 if lst == [] else 0.0
+                [acc, pre, rec, f1, sup] = [1.] * 5 if lst == [] else [0.] * 5
+            else:
+                results = dataset.select(sample.id) \
+                    .evaluate_detections("predictions", gt_field="detections", iou=0.4,
+                                         eval_key="eval", compute_mAP=True, )
+                ap = results.mAP()
+                [acc, pre, rec, f1, sup] = results.metrics().values()
+            df.loc[:, model_name] = [acc, pre, rec, f1, sup, ap]
     except Exception:  # model_name is not exist
         raise
 
