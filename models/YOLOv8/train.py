@@ -36,7 +36,7 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 # YOLOv5 trainin quickstart: https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data
 
 # Train from the beginning with the right split of training/validation datasets.
-with open('YOLOv8_training.json', 'r') as f:
+with open('config.json', 'r') as f:
     JSON_Obj = json.load(f)
 YOLO('./weights/yolov8x.pt').train(
     data=JSON_Obj["data"],
