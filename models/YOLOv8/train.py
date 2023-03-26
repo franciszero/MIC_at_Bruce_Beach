@@ -14,6 +14,14 @@ pd.set_option('display.width', 2000)
 pd.set_option('display.precision', 3)
 
 
+trains = glob.glob('../../runs/detect/*')
+if not trains:
+    train_result_folder = "train"
+else:
+    train_result_folder = "train" + str(np.array([int(path.rsplit('train', 1)[1])
+                                                  if path.rsplit('train', 1)[1] != '' else 0
+                                                  for path in trains]).max() + 1)
+
 def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
     assert (gridspec_cols >= 2)  # not allowed single col gridspec plot
     assert (len(column_names_to_plot) / gridspec_cols > 1)  # not allowed single row gridspec plot
@@ -46,13 +54,7 @@ YOLO('./weights/yolov8x.pt').train(
     patience=JSON_Obj["patience"],  # use `patience=0` to disable EarlyStopping
 )
 
-trains = glob.glob('./../../runs/detect/*')
-if not trains:
-    train_result_folder = "train"
-else:
-    train_result_folder = "train" + str(np.array([int(path.rsplit('train', 1)[1])
-                                                  if path.rsplit('train', 1)[1] != '' else 0
-                                                  for path in trains]).max() + 1)
+
 # merging training results
 files = ['../../runs/detect/' + train_result_folder + '/results.csv',
          # '../../runs/detect/train30/results.csv',
