@@ -1,6 +1,6 @@
 {
 	"weights_file": "../../runs/detect/train16/weights/last.pt",
-	"data": "./BruceBeach157.yaml",
+	"data": "./BruceBeach158.yaml",
 	"imgsz": 2048,
 	"epochs": 500,
 	"batch": 1,

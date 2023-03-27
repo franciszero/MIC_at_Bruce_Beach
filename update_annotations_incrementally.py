@@ -14,5 +14,5 @@ else:
 # AnnotationYOLOv8(batch_path, model_id=1).foo()
 # AnnotationInsightFace(batch_path, model_id=2).foo()
 # AnnotationSahiYOLOv8(batch_path, model_id=3).foo()
-AnnotationYOLOv8(batch_path, model_id=6, model_weights='./runs/detect/best.pt').foo()
-AnnotationSahiYOLOv8(batch_path, model_id=7, model_weights='./runs/detect/best.pt').foo()
+AnnotationYOLOv8(batch_path, model_id=6, model_weights='./runs/detect/runs/detect/train16/best.pt').foo()
+AnnotationSahiYOLOv8(batch_path, model_id=7, model_weights='./runs/detect/runs/detect/train16/best.pt').foo()
