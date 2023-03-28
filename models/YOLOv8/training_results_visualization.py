@@ -29,10 +29,11 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 
 # merging training results
 files = [  # '../../runs/detect/' + train_result_folder + '/results.csv',
-    '../../runs/detect/train16/results.csv',
-    '../../runs/detect/train17/results.csv',
-    '../../runs/detect/train18/results.csv',
-    '../../runs/detect/train19/results.csv',
+    # '../../runs/detect/train16/results.csv',
+    # '../../runs/detect/train17/results.csv',
+    # '../../runs/detect/train18/results.csv',
+    # '../../runs/detect/train19/results.csv',
+    '../../runs/detect/train20/results.csv',
 ]
 df = pd.concat(map(pd.read_csv, files), ignore_index=True)
 df.columns = [x.strip(' ') for x in df.columns]
