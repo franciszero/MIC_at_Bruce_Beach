@@ -40,4 +40,4 @@ ordered_cols = [
     'val/box_loss', 'val/cls_loss', 'val/dfl_loss', 'metrics/mAP50(B)', 'metrics/mAP50-95(B)',
 ]
 result_figure = plot_metrics(df, ordered_cols, gridspec_cols=5)
-result_figure.savefig("results-.png")
+result_figure.savefig("results-.png", bbox_inches='tight', pad_inches=0.2)
