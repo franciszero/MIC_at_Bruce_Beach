@@ -10,8 +10,8 @@ if len(sys.argv) == 2:
 else:
     exit(250)
 
-AnnotationInsightFace(batch_path, model_id=2).foo()
-# AnnotationResNet(batch_path, model_id=0).foo()
+# AnnotationInsightFace(batch_path, model_id=2).foo()
+AnnotationResNet(batch_path, model_id=0).foo()
 # AnnotationYOLOv8(batch_path, model_id=1, model_weights='./models/YOLOv8x/weights/yolov8x.pt').foo()
 # AnnotationSahiYOLOv8(batch_path, model_id=3, model_weights='./models/YOLOv8x/weights/yolov8x.pt').foo()
 # AnnotationYOLOv8(batch_path, model_id=4, model_weights='./runs/detect/runs/detect/train18/weights/best.pt').foo()
