@@ -8,7 +8,7 @@ import os
 annotations = {"categories": [{"id": 1, "name": "1", "supercategory": ""}], "images": [], "annotations": []}
 
 processed_imgs = []
-labeled_files = [os.path.splitext(f)[0].rsplit('/', 1)[1] + ".jpg" for f in glob.glob('./train/labels/*')]
+labeled_files = [os.path.splitext(f)[0].rsplit('/', 1)[1] + ".jpg" for f in glob.glob('./val/labels/*')]
 global_image_ids = {}
 
 # start from 1
@@ -50,7 +50,7 @@ for fpath in ['./BB39.json', './BB300.json', './BB565.json']:
         annotations['annotations'].append(anno)
 
 jsonStr = json.dumps(annotations)
-file = open('annotation_BB158_train.json', 'w')
+file = open('annotation_BB158_val.json', 'w')
 file.write(jsonStr)
 file.close()
 print("")
