@@ -47,12 +47,13 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 with open('config.json', 'r') as f:
     JSON_Obj = json.load(f)
 # YOLO('./weights/yolov8x.pt').train(
-YOLO('../../runs/detect/train15/weights/best.pt').train(
+YOLO(JSON_Obj["weights_file"]).train(
     data=JSON_Obj["data"],
     imgsz=JSON_Obj["imgsz"],
     epochs=JSON_Obj["epochs"],
     batch=JSON_Obj["batch"],
     patience=JSON_Obj["patience"],  # use `patience=0` to disable EarlyStopping
+    device=JSON_Obj["device"]
 )
 
 

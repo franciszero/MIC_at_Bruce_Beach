@@ -1,8 +1,9 @@
 {
-	"weights_file": "../../runs/detect/train16/weights/last.pt",
+	"weights_file": "./weights/yolov8x.pt",
 	"data": "./BruceBeach158.yaml",
 	"imgsz": 2048,
 	"epochs": 500,
-	"batch": 1,
+	"batch": 4,
+	"device": [0,1,2,3],
 	"patience": 100
 }
