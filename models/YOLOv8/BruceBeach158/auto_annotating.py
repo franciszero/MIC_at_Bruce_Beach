@@ -4,26 +4,11 @@ import glob
 import json
 import os
 
-# def foo(fpath, already_read_lst):
-#     f = open(fpath)
-#     j = json.load(f)
-#     ns = [jj['file_name'] for jj in j.get('images')]
-#     imgs = [val for val in ns if val in set(labeled_files).difference(set(already_read_lst))]
-#     f.close()
-#     return imgs
-#
-#
-# bb39 = foo('BB39.json', [])
-# bb300 = foo('BB300.json', bb39)
-# bb565 = foo('BB565.json', bb39 + bb300)
-# dups = [val for val in bb300 if val in bb565]
-# diffs = list(set(labeled_files).difference(set(bb300 + bb565 + bb39)))
-
 # one annotation for a group of images
 annotations = {"categories": [{"id": 1, "name": "1", "supercategory": ""}], "images": [], "annotations": []}
 
 processed_imgs = []
-labeled_files = [os.path.splitext(f)[0].rsplit('/', 1)[1] + ".jpg" for f in glob.glob('./val/labels/*')]
+labeled_files = [os.path.splitext(f)[0].rsplit('/', 1)[1] + ".jpg" for f in glob.glob('./train/labels/*')]
 global_image_ids = {}
 
 # start from 1
@@ -65,7 +50,7 @@ for fpath in ['./BB39.json', './BB300.json', './BB565.json']:
         annotations['annotations'].append(anno)
 
 jsonStr = json.dumps(annotations)
-file = open('annotation_BB158_val76.json', 'w')
+file = open('annotation_BB158_train.json', 'w')
 file.write(jsonStr)
 file.close()
 print("")
