@@ -20,8 +20,8 @@ pd.set_option('display.precision', 3)
 
 def visualize_mAP_with_plotly(default_dataset, model_name):
     # predictions_view = default_dataset.take(default_dataset.count(), seed=51)
-    high_conf_view = default_dataset.view().filter_labels("predictions", F("confidence") > 0.5, only_matches=False)
-    results = high_conf_view.evaluate_detections(
+    # high_conf_view = predictions_view.filter_labels("predictions", F("confidence") > 0.5, only_matches=False)
+    results = default_dataset.view().evaluate_detections(
         "predictions",
         gt_field="detections",
         eval_key="eval",
@@ -52,8 +52,8 @@ def visualize_mAP_with_plotly(default_dataset, model_name):
 def generate_img_clf_gt(metrics_dic, model_name):
     try:
         dataset = fo.load_dataset(model_name)
-        # # running kaleido in a venv meets this bug: https://github.com/plotly/Kaleido/issues/78
-        visualize_mAP_with_plotly(dataset, model_name)
+        # # # running kaleido in a venv meets this bug: https://github.com/plotly/Kaleido/issues/78
+        # visualize_mAP_with_plotly(dataset, model_name)
         for sample in dataset:
             df = metrics_dic[sample.filename]
             if sample.get_field('detections') is None:
@@ -79,7 +79,7 @@ def new_metric_frame():
 
 
 # visualization
-def metric_visualization(filename):
+def metric_visualization(filename, x=15, y=5, dpi=150):
     name_of_file = filename.split('.', 1)[0]
     plot_df = pd.read_csv(path + filename)
     plot_df = plot_df.sort_values(by=list(MODEL_LIST)[::-1], ascending=False)
@@ -88,7 +88,7 @@ def metric_visualization(filename):
     plot_df.index = plot_df.index.rename('model', level=1)
     plot_df.name = name_of_file
     plot_df = plot_df.reset_index()
-    fig, ax = plt.subplots(1, 1, figsize=(15, 5))
+    fig, ax = plt.subplots(1, 1, figsize=(x, y), dpi=dpi)
     sns.lineplot(data=plot_df[plot_df['model'] != MODEL_LIST[-1]], x="file", y=name_of_file, hue='model', style="model",
                  markers=False, dashes=False, lw=1, palette=sns.color_palette("bright", 8), ax=ax)
     sns.lineplot(data=plot_df[plot_df['model'] == MODEL_LIST[-1]], x="file", y=name_of_file, hue='model', style="model",
@@ -96,10 +96,10 @@ def metric_visualization(filename):
     ax.set_title('Model ' + name_of_file + ' comparison')
     ax.set_xticklabels(ax.get_xticklabels(), rotation=90, size=8)
     plt.tight_layout()
-    plt.savefig('./data/img_class_ground_truth/' + name_of_file + '.jpg')
+    plt.savefig('./' + name_of_file + '.jpg')
 
 
-path = './data/img_class_ground_truth/'
+path = './'
 dict_metrics = defaultdict(lambda: new_metric_frame())
 for model_id in range(len(MODEL_LIST)):
     generate_img_clf_gt(dict_metrics, MODEL_LIST[model_id])
@@ -118,5 +118,5 @@ for metric in tmp.index.get_level_values('metric').unique():
 tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
     .to_csv(path + 'labels.csv', float_format='%.3f')
 
-metric_visualization('accuracy.csv')
-metric_visualization('mAP.csv')
+metric_visualization('accuracy.csv', x=60, dpi=150)
+metric_visualization('mAP.csv', x=60, dpi=150)

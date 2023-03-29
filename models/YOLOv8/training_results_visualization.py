@@ -34,6 +34,10 @@ files = [  # '../../runs/detect/' + train_result_folder + '/results.csv',
     # '../../runs/detect/train18/results.csv',
     # '../../runs/detect/train19/results.csv',
     '../../runs/detect/train20/results.csv',
+    '../../runs/detect/train21/results.csv',
+    '../../runs/detect/train22/results.csv',
+    '../../runs/detect/train23/results.csv',
+    '../../runs/detect/train24/results.csv',
 ]
 df = pd.concat(map(pd.read_csv, files), ignore_index=True)
 df.columns = [x.strip(' ') for x in df.columns]
