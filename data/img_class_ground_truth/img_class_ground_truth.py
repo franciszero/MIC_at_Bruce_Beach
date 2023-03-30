@@ -81,7 +81,7 @@ def new_metric_frame():
 # visualization
 def metric_visualization(filename, x=15, y=5, dpi=150):
     name_of_file = filename.split('.', 1)[0]
-    plot_df = pd.read_csv(path + filename)
+    plot_df = pd.read_csv(filename)
     plot_df = plot_df.sort_values(by=list(MODEL_LIST)[::-1], ascending=False)
     plot_df = plot_df.set_index(['file'])
     plot_df = plot_df.stack()
@@ -118,5 +118,5 @@ for metric in tmp.index.get_level_values('metric').unique():
 tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
     .to_csv(path + 'labels.csv', float_format='%.3f')
 
-metric_visualization('accuracy.csv', x=60, dpi=150)
-metric_visualization('mAP.csv', x=60, dpi=150)
+metric_visualization('accuracy.csv', x=30, dpi=150)
+metric_visualization('mAP.csv', x=30, dpi=150)
