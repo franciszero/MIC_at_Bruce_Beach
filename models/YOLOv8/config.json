@@ -1,6 +1,6 @@
 {
 	"weights_file": "./weights/yolov8x.pt",
-	"data": "./BruceBeach158/BruceBeach426.yaml",
+	"data": "./BruceBeach426/BruceBeach426.yaml",
 	"imgsz": 2048,
 	"epochs": 1000,
 	"batch": 4,
