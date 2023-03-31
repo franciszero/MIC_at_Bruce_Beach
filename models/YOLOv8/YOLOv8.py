@@ -3,20 +3,24 @@ from fiftyone import dataset_exists, delete_dataset
 from fiftyone.types import COCODetectionDataset
 from ultralyticsplus import YOLO, render_result
 import fiftyone as fo
+import numpy as np
 
 from models.utils.Consts import MODEL_LIST, LABEL_PERSON
 
 
 class AnnotationYOLOv8:
-    def __init__(self, workspace, model_id, model_weights):
+    def __init__(self, workspace, model_name, model_weights):
+        if len(np.where(MODEL_LIST == model_name)[0]) == 0:
+            print("[ERROR] model name does not exist")
+            return
         self.workspace = workspace
-        if dataset_exists(MODEL_LIST[model_id]):
-            self.ds = fo.load_dataset(MODEL_LIST[model_id])
+        if dataset_exists(model_name):
+            self.ds = fo.load_dataset(model_name)
         else:
-            self.ds = fo.Dataset(MODEL_LIST[model_id])
+            self.ds = fo.Dataset(model_name)
             self.ds.persistent = True
 
-        new_ds_name = MODEL_LIST[model_id] + "_1"
+        new_ds_name = model_name + "_1"
         if dataset_exists(new_ds_name):
             delete_dataset(new_ds_name)
         self.new_ds = fo.Dataset.from_dir(dataset_type=COCODetectionDataset,
