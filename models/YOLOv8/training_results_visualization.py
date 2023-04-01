@@ -13,7 +13,7 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
     assert (len(column_names_to_plot) / gridspec_cols > 1)  # not allowed single row gridspec plot
     gridspec_rows = math.ceil(len(column_names_to_plot) / gridspec_cols)
 
-    fig, axes = plt.subplots(gridspec_rows, gridspec_cols, figsize=(8 * gridspec_cols, 4 * gridspec_rows))
+    fig, axes = plt.subplots(gridspec_rows, gridspec_cols, figsize=(10 * gridspec_cols, 4 * gridspec_rows))
     for i in range(gridspec_rows):
         for j in range(gridspec_cols):
             if idx < len(column_names_to_plot):
@@ -29,15 +29,21 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
 
 # merging training results
 files = [  # '../../runs/detect/' + train_result_folder + '/results.csv',
+    # round 1
     # '../../runs/detect/train16/results.csv',
     # '../../runs/detect/train17/results.csv',
     # '../../runs/detect/train18/results.csv',
-    # '../../runs/detect/train19/results.csv',
-    '../../runs/detect/train20/results.csv',
-    '../../runs/detect/train21/results.csv',
-    '../../runs/detect/train22/results.csv',
-    '../../runs/detect/train23/results.csv',
-    '../../runs/detect/train24/results.csv',
+    # round 2
+    # '../../runs/detect/train20/results.csv',
+    # '../../runs/detect/train21/results.csv',
+    # '../../runs/detect/train22/results.csv',
+    # '../../runs/detect/train23/results.csv',
+    # '../../runs/detect/train24/results.csv',
+    # round 3
+    '../../runs/detect/train27/results.csv',
+    '../../runs/detect/train28/results.csv',
+    '../../runs/detect/train29/results.csv',
+    '../../runs/detect/train30/results.csv',
 ]
 df = pd.concat(map(pd.read_csv, files), ignore_index=True)
 df.columns = [x.strip(' ') for x in df.columns]
