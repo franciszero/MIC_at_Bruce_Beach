@@ -13,8 +13,7 @@ from models.utils.Consts import MODEL_LIST, LABEL_PERSON
 
 
 class AnnotationSahiYOLOv8:
-    def __init__(self, workspace, model_id, model_weights):
-        self.workspace = workspace
+    def __init__(self, annotations, images, model_id, model_weights):
         if dataset_exists(MODEL_LIST[model_id]):
             self.ds = fo.load_dataset(MODEL_LIST[model_id])
         else:
@@ -25,8 +24,8 @@ class AnnotationSahiYOLOv8:
         if dataset_exists(new_ds_name):
             delete_dataset(new_ds_name)
         self.new_ds = fo.Dataset.from_dir(dataset_type=COCODetectionDataset,
-                                          data_path=workspace + "../images/",
-                                          labels_path=workspace + "/instances_default.json",
+                                          data_path=images,
+                                          labels_path=annotations,
                                           name=new_ds_name)
 
         YOLO(model_weights)

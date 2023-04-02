@@ -13,25 +13,24 @@ from sklearn.metrics import PrecisionRecallDisplay
 
 
 class AnnotationResNet:
-    def __init__(self, workspace, model_id):
-        self.workspace = workspace
-        if dataset_exists(MODEL_LIST[model_id]):
-            self.ds = fo.load_dataset(MODEL_LIST[model_id])
+    def __init__(self, annotations, images, model_name, model_weights):
+        if dataset_exists(model_name):
+            self.ds = fo.load_dataset(model_name)
         else:
-            self.ds = fo.Dataset(MODEL_LIST[model_id])
+            self.ds = fo.Dataset(model_name)
             self.ds.persistent = True
 
-        new_ds_name = MODEL_LIST[model_id] + "_1"
+        new_ds_name = model_name + "_1"
         if dataset_exists(new_ds_name):
             delete_dataset(new_ds_name)
         self.new_ds = fo.Dataset.from_dir(dataset_type=COCODetectionDataset,
-                                          data_path=workspace + "../images/",
-                                          labels_path=workspace + "/instances_default.json",
+                                          data_path=images,
+                                          labels_path=annotations,
                                           name=new_ds_name)
         self.new_ds.persistent = False
 
-        self.processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50")
-        self.model = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50")
+        self.processor = DetrImageProcessor.from_pretrained(model_weights)
+        self.model = DetrForObjectDetection.from_pretrained(model_weights)
 
     def foo(self):
         # Get class list
