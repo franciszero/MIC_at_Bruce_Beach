@@ -85,7 +85,7 @@ def new_metric_frame():
 def metric_visualization(filename, dpi=150):
     name_of_file = filename.split('.', 1)[0]
     plot_df = pd.read_csv(filename)
-    x = int(plot_df.index.size / 4)
+    x = int(plot_df.index.size / 6)
     y = int(x / 4)
     plot_df = plot_df.sort_values(by=list(MODEL_LIST)[::-1], ascending=False)
     plot_df = plot_df.set_index(['file'])
