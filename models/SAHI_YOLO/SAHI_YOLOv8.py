@@ -13,14 +13,14 @@ from models.utils.Consts import MODEL_LIST, LABEL_PERSON
 
 
 class AnnotationSahiYOLOv8:
-    def __init__(self, annotations, images, model_id, model_weights):
-        if dataset_exists(MODEL_LIST[model_id]):
-            self.ds = fo.load_dataset(MODEL_LIST[model_id])
+    def __init__(self, annotations, images, model_name, model_weights):
+        if dataset_exists(model_name):
+            self.ds = fo.load_dataset(model_name)
         else:
-            self.ds = fo.Dataset(MODEL_LIST[model_id])
+            self.ds = fo.Dataset(model_name)
             self.ds.persistent = True
 
-        new_ds_name = MODEL_LIST[model_id] + "_1"
+        new_ds_name = model_name + "_1"
         if dataset_exists(new_ds_name):
             delete_dataset(new_ds_name)
         self.new_ds = fo.Dataset.from_dir(dataset_type=COCODetectionDataset,
