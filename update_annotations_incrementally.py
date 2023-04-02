@@ -4,10 +4,10 @@ from models.InsightFace.InsightFace import AnnotationInsightFace
 from models.SAHI_YOLO.SAHI_YOLOv8 import AnnotationSahiYOLOv8
 import sys
 
-AnnotationInsightFace(annotations='./models/YOLOv8/BruceBeach426/test/test.json',
-                      images='./models/YOLOv8/BruceBeach426/test/images/',
-                      model_name='insightface_pre_BB426',
-                      model_weights='scrfd_person_2.5g.onnx').foo()
+# AnnotationInsightFace(annotations='./models/YOLOv8/BruceBeach426/test/test.json',
+#                       images='./models/YOLOv8/BruceBeach426/test/images/',
+#                       model_name='insightface_pre_BB426',
+#                       model_weights='scrfd_person_2.5g.onnx').foo()
 AnnotationResNet(annotations='./models/YOLOv8/BruceBeach426/test/test.json',
                  images='./models/YOLOv8/BruceBeach426/test/images/',
                  model_name='DertResNet50_pre_BB426',
