@@ -11,6 +11,8 @@ import os
 import plotly
 import kaleido
 import plotly.io as pio
+import sys
+sys.path.append("../..")
 
 from models.utils.Consts import MODEL_LIST
 import matplotlib.dates as mdates
@@ -73,6 +75,7 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=90, size=8)
 ax.grid()
 plt.tight_layout()
 # plt.show()
-plt.savefig('./data/img_class_ground_truth/Model predictions comparison.jpg')
+# plt.savefig('./data/img_class_ground_truth/Model predictions comparison.jpg')
+plt.savefig('./Model predictions comparison.jpg')
 
 print('')
