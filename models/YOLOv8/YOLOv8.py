@@ -9,11 +9,10 @@ from models.utils.Consts import MODEL_LIST, LABEL_PERSON
 
 
 class AnnotationYOLOv8:
-    def __init__(self, workspace, model_name, model_weights):
+    def __init__(self, annotations, images, model_name, model_weights):
         if len(np.where(MODEL_LIST == model_name)[0]) == 0:
             print("[ERROR] model name does not exist")
             return
-        self.workspace = workspace
         if dataset_exists(model_name):
             self.ds = fo.load_dataset(model_name)
         else:
@@ -24,8 +23,8 @@ class AnnotationYOLOv8:
         if dataset_exists(new_ds_name):
             delete_dataset(new_ds_name)
         self.new_ds = fo.Dataset.from_dir(dataset_type=COCODetectionDataset,
-                                          data_path=workspace + "../images/",
-                                          labels_path=workspace + "/instances_default.json",
+                                          data_path=images,
+                                          labels_path=annotations,
                                           name=new_ds_name)
 
         self.model = YOLO(model_weights)

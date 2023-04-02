@@ -55,7 +55,7 @@ def generate_img_clf_gt(metrics_dic, model_name):
         # # # running kaleido in a venv meets this bug: https://github.com/plotly/Kaleido/issues/78
         # visualize_mAP_with_plotly(dataset, model_name)
         for i, sample in enumerate(dataset):
-            print("[%d/%d] %s" %(i, dataset.count(), model_name))
+            print("[%d/%d] %s" % (i, dataset.count(), model_name))
             df = metrics_dic[sample.filename]
             if sample.get_field('detections') is None:
                 lst = sample.get_field('predictions').get_field('detections')
@@ -80,9 +80,11 @@ def new_metric_frame():
 
 
 # visualization
-def metric_visualization(filename, x=15, y=5, dpi=150):
+def metric_visualization(filename, dpi=150):
     name_of_file = filename.split('.', 1)[0]
     plot_df = pd.read_csv(filename)
+    x = int(plot_df.index.size / 4)
+    y = int(x / 4)
     plot_df = plot_df.sort_values(by=list(MODEL_LIST)[::-1], ascending=False)
     plot_df = plot_df.set_index(['file'])
     plot_df = plot_df.stack()
@@ -100,24 +102,24 @@ def metric_visualization(filename, x=15, y=5, dpi=150):
     plt.savefig('./' + name_of_file + '.jpg')
 
 
-path = './'
-dict_metrics = defaultdict(lambda: new_metric_frame())
-for model_id in range(len(MODEL_LIST)):
-    generate_img_clf_gt(dict_metrics, MODEL_LIST[model_id])
+# path = './'
+# dict_metrics = defaultdict(lambda: new_metric_frame())
+# for model_id in range(len(MODEL_LIST)):
+#     generate_img_clf_gt(dict_metrics, MODEL_LIST[model_id])
+#
+# tmp = pd.DataFrame(index=pd.MultiIndex(levels=[[], []], codes=[[], []], names=[u'file', u'metric']),
+#                    columns=MODEL_LIST, dtype=float, )
+# for (n, a) in dict_metrics.items():
+#     for metric in a.index:
+#         mt = a[a.index == metric]
+#         tmp.loc[(n, metric), MODEL_LIST] = mt.values.flatten().round(3)
+#         tmp.loc[(n, metric), 'best_model_name'] = mt.T.idxmax().values[0]
+# tmp.to_csv(path + 'rawdata.csv', float_format='%.3f')
+#
+# for metric in tmp.index.get_level_values('metric').unique():
+#     tmp.loc[IndexSlice[:, metric], MODEL_LIST].droplevel('metric').to_csv(path + '%s.csv' % metric, float_format='%.3f')
+# tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
+#     .to_csv(path + 'labels.csv', float_format='%.3f')
 
-tmp = pd.DataFrame(index=pd.MultiIndex(levels=[[], []], codes=[[], []], names=[u'file', u'metric']),
-                   columns=MODEL_LIST, dtype=float, )
-for (n, a) in dict_metrics.items():
-    for metric in a.index:
-        mt = a[a.index == metric]
-        tmp.loc[(n, metric), MODEL_LIST] = mt.values.flatten().round(3)
-        tmp.loc[(n, metric), 'best_model_name'] = mt.T.idxmax().values[0]
-tmp.to_csv(path + 'rawdata.csv', float_format='%.3f')
-
-for metric in tmp.index.get_level_values('metric').unique():
-    tmp.loc[IndexSlice[:, metric], MODEL_LIST].droplevel('metric').to_csv(path + '%s.csv' % metric, float_format='%.3f')
-tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
-    .to_csv(path + 'labels.csv', float_format='%.3f')
-
-metric_visualization('accuracy.csv', x=30, dpi=150)
-metric_visualization('mAP.csv', x=30, dpi=150)
+metric_visualization('accuracy.csv', dpi=150)
+metric_visualization('mAP.csv', dpi=150)
