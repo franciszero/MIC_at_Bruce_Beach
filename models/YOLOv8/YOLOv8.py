@@ -48,6 +48,8 @@ class AnnotationYOLOv8:
                 detections = []
                 for result in results:
                     for bbox in result.boxes:
+                        if torch.cuda.is_available():
+                            bbox = bbox.cpu()
                         if int(bbox.cls.numpy()[0]) == 0:
                             [[x1, y1, x2, y2, conf, label]] = bbox.boxes.numpy()
                             rel_box = [x1 / w, y1 / h, (x2 - x1) / w, (y2 - y1) / h]
