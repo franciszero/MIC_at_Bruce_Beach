@@ -102,24 +102,24 @@ def metric_visualization(filename, dpi=150):
     plt.savefig('./' + name_of_file + '.jpg')
 
 
-# path = './'
-# dict_metrics = defaultdict(lambda: new_metric_frame())
-# for model_id in range(len(MODEL_LIST)):
-#     generate_img_clf_gt(dict_metrics, MODEL_LIST[model_id])
-#
-# tmp = pd.DataFrame(index=pd.MultiIndex(levels=[[], []], codes=[[], []], names=[u'file', u'metric']),
-#                    columns=MODEL_LIST, dtype=float, )
-# for (n, a) in dict_metrics.items():
-#     for metric in a.index:
-#         mt = a[a.index == metric]
-#         tmp.loc[(n, metric), MODEL_LIST] = mt.values.flatten().round(3)
-#         tmp.loc[(n, metric), 'best_model_name'] = mt.T.idxmax().values[0]
-# tmp.to_csv(path + 'rawdata.csv', float_format='%.3f')
-#
-# for metric in tmp.index.get_level_values('metric').unique():
-#     tmp.loc[IndexSlice[:, metric], MODEL_LIST].droplevel('metric').to_csv(path + '%s.csv' % metric, float_format='%.3f')
-# tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
-#     .to_csv(path + 'labels.csv', float_format='%.3f')
+path = './'
+dict_metrics = defaultdict(lambda: new_metric_frame())
+for model_id in range(len(MODEL_LIST)):
+    generate_img_clf_gt(dict_metrics, MODEL_LIST[model_id])
+
+tmp = pd.DataFrame(index=pd.MultiIndex(levels=[[], []], codes=[[], []], names=[u'file', u'metric']),
+                   columns=MODEL_LIST, dtype=float, )
+for (n, a) in dict_metrics.items():
+    for metric in a.index:
+        mt = a[a.index == metric]
+        tmp.loc[(n, metric), MODEL_LIST] = mt.values.flatten().round(3)
+        tmp.loc[(n, metric), 'best_model_name'] = mt.T.idxmax().values[0]
+tmp.to_csv(path + 'rawdata.csv', float_format='%.3f')
+
+for metric in tmp.index.get_level_values('metric').unique():
+    tmp.loc[IndexSlice[:, metric], MODEL_LIST].droplevel('metric').to_csv(path + '%s.csv' % metric, float_format='%.3f')
+tmp.reset_index('metric').pivot(columns='metric', values='best_model_name') \
+    .to_csv(path + 'labels.csv', float_format='%.3f')
 
 metric_visualization('accuracy.csv', dpi=150)
 metric_visualization('mAP.csv', dpi=150)
