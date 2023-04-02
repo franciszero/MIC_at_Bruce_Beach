@@ -10,6 +10,8 @@ import os
 import plotly
 import kaleido
 import plotly.io as pio
+import sys
+sys.path.append("../..")
 
 from models.utils.Consts import MODEL_LIST
 
