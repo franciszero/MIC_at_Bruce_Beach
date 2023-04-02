@@ -1,3 +1,4 @@
+import torch
 from PIL import Image
 from fiftyone import dataset_exists, delete_dataset
 from fiftyone.types import COCODetectionDataset
