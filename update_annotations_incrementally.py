@@ -1,7 +1,7 @@
 from models.YOLOv8.YOLOv8 import AnnotationYOLOv8
-from models.DertResNet50.ResNet import AnnotationResNet
-from models.InsightFace.InsightFace import AnnotationInsightFace
-from models.SAHI_YOLO.SAHI_YOLOv8 import AnnotationSahiYOLOv8
+# from models.DertResNet50.ResNet import AnnotationResNet
+# from models.InsightFace.InsightFace import AnnotationInsightFace
+# from models.SAHI_YOLO.SAHI_YOLOv8 import AnnotationSahiYOLOv8
 import sys
 
 # AnnotationInsightFace(batch_path, model_id=2).foo()
