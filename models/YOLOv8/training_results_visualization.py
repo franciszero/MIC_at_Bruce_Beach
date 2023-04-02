@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import math
 import pandas as pd
+import matplotlib.ticker as mticker
 
 pd.set_option('display.max_columns', 30)
 pd.set_option('display.width', 2000)
@@ -13,7 +14,8 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
     assert (len(column_names_to_plot) / gridspec_cols > 1)  # not allowed single row gridspec plot
     gridspec_rows = math.ceil(len(column_names_to_plot) / gridspec_cols)
 
-    fig, axes = plt.subplots(gridspec_rows, gridspec_cols, figsize=(10 * gridspec_cols, 4 * gridspec_rows))
+    x0, y0, dpi = 10, 4, 100
+    fig, axes = plt.subplots(gridspec_rows, gridspec_cols, figsize=(15 * gridspec_cols, 8 * gridspec_rows), dpi=dpi)
     for i in range(gridspec_rows):
         for j in range(gridspec_cols):
             if idx < len(column_names_to_plot):
@@ -22,8 +24,9 @@ def plot_metrics(dfx, column_names_to_plot, gridspec_cols=2, idx=0):
                 f = dfx[[c]]
                 ax0 = axes[i][j]
                 sns.lineplot(f, markers=True, ax=ax0, color='brown')
-                ax0.set_title(c, size=16)
-    fig.suptitle('Training result metrics', size=26)
+                ax0.tick_params(axis='both', which='major', rotation=0, labelsize=2 * x0)
+                ax0.set_title(c, size=3 * x0)
+    fig.suptitle('Training result metrics', size=5 * x0)
     return fig
 
 
