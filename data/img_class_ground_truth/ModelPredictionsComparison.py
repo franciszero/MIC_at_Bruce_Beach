@@ -76,6 +76,6 @@ ax.grid()
 plt.tight_layout()
 # plt.show()
 # plt.savefig('./data/img_class_ground_truth/Model predictions comparison.jpg')
-plt.savefig('./Model predictions comparison.jpg')
+plt.savefig('./ModelPredictionsComparison.jpg')
 
 print('')
