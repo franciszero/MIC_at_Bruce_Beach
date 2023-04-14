@@ -62,7 +62,7 @@ for i, (s31_SAHI, s31) in enumerate(zip(ds31_SAHI, ds31)):
         break
 
 test_sort = test.sort_values(by=['ground truth', 'train31', 'train31_SAHI'], ascending=False)
-tmp = test_sort[['Image', 'ground truth', 'train31']].set_index(['Image']).stack()
+tmp = test_sort[['Image', 'ground truth', 'train31', 'train31_SAHI']].set_index(['Image']).stack()
 tmp = tmp.rename_axis(index=['Image', 'class'])
 tmp.name = 'People counting'
 tmp = tmp.reset_index()
