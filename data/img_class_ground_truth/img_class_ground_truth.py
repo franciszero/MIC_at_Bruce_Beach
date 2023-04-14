@@ -54,8 +54,8 @@ def visualize_mAP_with_plotly(default_dataset, model_name):
 def generate_img_clf_gt(metrics_dic, model_name):
     try:
         dataset = fo.load_dataset(model_name)
-        # # # running kaleido in a venv meets this bug: https://github.com/plotly/Kaleido/issues/78
-        # visualize_mAP_with_plotly(dataset, model_name)
+        # # running kaleido in a venv meets this bug: https://github.com/plotly/Kaleido/issues/78
+        visualize_mAP_with_plotly(dataset, model_name)
         for i, sample in enumerate(dataset):
             print("[%d/%d] %s" % (i, dataset.count(), model_name))
             df = metrics_dic[sample.filename]
