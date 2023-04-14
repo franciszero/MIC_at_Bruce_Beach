@@ -22,7 +22,7 @@ import sys
 #                      model_weights='./models/YOLOv8/weights/yolov8x').foo()
 # AnnotationYOLOv8(annotations='./models/YOLOv8/BruceBeach426/test/test.json',
 #                  images='./models/YOLOv8/BruceBeach426/test/images/',
-#                  model_name='YOLOv8x_BB158_500_t16_b',
+#                  model_name='YOLOv8x_BB158_500_t18_b',
 #                  model_weights='./models/YOLOv8/weights/YOLOv8x_BB158_500_t18_b.pt').foo()
 AnnotationYOLOv8(annotations='./models/YOLOv8/BruceBeach426/test/test.json',
                  images='./models/YOLOv8/BruceBeach426/test/images/',
