@@ -14,11 +14,17 @@ import plotly.io as pio
 import sys
 sys.path.append("../..")
 
+import traitlets
+
+xx = traitlets.Integer(default_value=224).tag(config=True)
+print(xx)
+
 from models.utils.Consts import MODEL_LIST
 import matplotlib.dates as mdates
 from matplotlib.ticker import NullFormatter, FixedLocator
 
 pd.set_option('display.max_columns', 30)
+pd.set_option('display.max_rows', 200)
 pd.set_option('display.width', 2000)
 pd.set_option('display.precision', 3)
 
@@ -38,19 +44,16 @@ for i, (s31_SAHI, s31) in enumerate(zip(ds31_SAHI, ds31)):
                 test.loc[idx, "ground truth"] = len(gt16)
             else:
                 print(s31_SAHI.filename, len(gt16), " != ", len(gt31))
-
         pred16 = s31_SAHI.predictions.detections
         if pred16 is None:
             test.loc[idx, "train31_SAHI"] = 0
         else:
             test.loc[idx, "train31_SAHI"] = len(pred16)
-
         pred31 = s31.predictions.detections
         if pred31 is None:
             test.loc[idx, "train31"] = 0
         else:
             test.loc[idx, "train31"] = len(pred31)
-
         print(s31_SAHI.filename, s31.filename, )
     else:
         print(s31_SAHI.filename,
