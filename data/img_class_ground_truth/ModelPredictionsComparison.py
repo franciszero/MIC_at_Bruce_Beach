@@ -14,11 +14,6 @@ import plotly.io as pio
 import sys
 sys.path.append("../..")
 
-import traitlets
-
-xx = traitlets.Integer(default_value=224).tag(config=True)
-print(xx)
-
 from models.utils.Consts import MODEL_LIST
 import matplotlib.dates as mdates
 from matplotlib.ticker import NullFormatter, FixedLocator
