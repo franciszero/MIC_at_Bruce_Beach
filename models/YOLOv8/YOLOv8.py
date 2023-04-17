@@ -48,6 +48,7 @@ class AnnotationYOLOv8:
                 results = self.model.predict(sample.filepath, stream=True, verbose=False)
                 detections = []
                 for result in results:
+                    print("There are %d people in %s." % (len(result.boxes), sample.filename))
                     for bbox in result.boxes:
                         if torch.cuda.is_available():
                             bbox = bbox.cpu()
