@@ -1,6 +1,6 @@
 #
 import glob
-from ultralyticsplus import YOLO
+from ultralyticsplus import YOLO, render_result
 
 
 if __name__ == '__main__':
@@ -15,3 +15,5 @@ if __name__ == '__main__':
         results = model.predict(file, stream=True, verbose=False)
         for result in results:
             print("There are %d people in %s." % (len(result.boxes), file.rsplit("/", 1)[1]))
+            render = render_result(model=model, image=file, result=result)
+            render.show()
